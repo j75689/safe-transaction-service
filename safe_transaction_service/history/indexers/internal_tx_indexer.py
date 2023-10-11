@@ -123,9 +123,10 @@ class InternalTxIndexer(EthereumIndexer):
             block_numbers = list(range(from_block_number, to_block_number + 1))
 
             with self.auto_adjust_block_limit(from_block_number, to_block_number):
-                blocks_traces: BlockTrace = self.ethereum_client.tracing.trace_blocks(
-                    block_numbers
+                blocks_trace: BlockTrace = self.ethereum_client.tracing.trace_block(
+                    block_numbers[0]
                 )
+                blocks_traces: List[List[Dict[str, Any]]] = [blocks_trace]
             traces: OrderedDict[HexStr, FilterTrace] = OrderedDict()
             relevant_tx_hashes: Set[HexStr] = set()
             for block_number, block_traces in zip(block_numbers, blocks_traces):
@@ -253,6 +254,10 @@ class InternalTxIndexer(EthereumIndexer):
                 yield from self.ethereum_client.tracing.trace_transactions(
                     tx_hash_chunk
                 )
+                # yield from self.ethereum_client.tracing.trace_transaction(
+                #     tx_hash_chunk[0]
+                # )
+                
             except IOError:
                 logger.error(
                     "Problem calling `trace_transactions` with %d txs. "

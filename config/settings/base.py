@@ -443,7 +443,7 @@ ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS = env.int(
     "ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS", default=10
 )  # Use `trace_block` for last `number_trace_blocks` blocks indexing
 ETH_INTERNAL_NO_FILTER = env.bool(
-    "ETH_INTERNAL_NO_FILTER", default=False
+    "ETH_INTERNAL_NO_FILTER", default=True
 )  # Don't use `trace_filter`, only `trace_block` and `trace_transaction`
 ETH_INTERNAL_TRACE_TXS_BATCH_SIZE = env.int(
     "ETH_INTERNAL_TRACE_TXS_BATCH_SIZE", default=0
